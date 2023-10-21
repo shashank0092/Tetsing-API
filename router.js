@@ -1,11 +1,17 @@
 const express=require("express")
 const router=express.Router();
 const empModel=require("./model")
+
+
 router.use(express.json())
-router.get("/",async(req,res)=>{
+router.get("/search",async(req,res)=>{
     try{
-        console.log("HA BHAI BOL")
-        res.send("YES").status(200)
+        const emp=await empModel.find();
+        console.log(emp);
+        res.send({
+            data:emp,
+            message:"All employess data"
+        }).status(200)
 
     }
 
@@ -38,5 +44,7 @@ router.post("/emp",async(req,res)=>{
         console.log("THIS IS ERROR IN DATA STORING",err)
     }
 })
+
+
 
 module.exports=router;
